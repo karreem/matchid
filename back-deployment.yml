@@ -23,7 +23,7 @@ spec:
             - name: NO_AUTH
               value: 'True'
             - name: APP
-              value: backend
+              value: matchID
             - name: APP_GROUP
               value: matchID
             - name: BACKEND_PORT
