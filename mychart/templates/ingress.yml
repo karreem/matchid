@@ -7,9 +7,9 @@ metadata:
 spec:
   tls:
     - hosts:
-        - matchid.lab.sspcloud.fr
+        - matchid.kube.developpement.insee.fr
   rules:
-    - host: matchid.lab.sspcloud.fr
+    - host: matchid.kube.developpement.insee.fr
       http:
         paths:
           - path: '/'

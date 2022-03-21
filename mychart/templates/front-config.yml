@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: front-configmap
+data:
+  API_PATH: "/matchID/api/v0"
+  BACKEND_PORT: "8081"
+  BACKEND_HOST: matchid-backend-service
+  API_USER_LIMIT_RATE: "1r/s"
+  API_DOWNLOAD_LIMIT_RATE: "30r/m"
+  API_USER_BURST: "20 nodelay"
+  API_USER_SCOPE: "http_x_forwarded_for"
+  API_GLOBAL_LIMIT_RATE: "20r/s"
+  API_GLOBAL_BURST: "200 nodelay"
+  APP_NAME: matchID

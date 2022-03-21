@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matchid-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: matchid-frontend
+  template:
+    metadata:
+      labels:
+        component: matchid-frontend
+    spec:
+      containers:
+        - name: matchid-frontend
+          image: matchid/matchid-frontend
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: front-configmap
