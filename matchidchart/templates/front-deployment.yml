@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: matchid-frontend-deployment
+  name: {{ .Values.image.frontendName }}-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: matchid-frontend
+      component: {{ .Values.image.frontendName }}
   template:
     metadata:
       labels:
-        component: matchid-frontend
+        component: {{ .Values.image.frontendName }}
     spec:
       containers:
-        - name: matchid-frontend
-          image: matchid/matchid-frontend
+        - name: {{ .Values.image.frontendName }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.matchidFrontName }}
           resources:
             requests:
               memory: "512Mi"
@@ -26,4 +26,4 @@ spec:
             - containerPort: 80
           envFrom:
             - configMapRef:
-                name: front-configmap
+                name: {{ .Values.image.frontConfigName }}

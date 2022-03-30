@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: back-configmap
+  name: {{.Values.image.backConfigName}}
 data:
   NO_AUTH: {{.Values.authentication.noauth}}
   APP: matchID
   APP_GROUP: matchID
-  BACKEND_PORT: {{.Values.service.port}}
+  BACKEND_PORT: {{.Values.service.backendPortConfig}}
   ES_THREADS: {{.Values.elastic.thread}}
   ES_MAX_TRIES: {{.Values.elastic.maxtries}}
   ES_CHUNK: {{.Values.elastic.chunk}}

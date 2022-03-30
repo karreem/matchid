@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: front-configmap
+  name: {{.Values.image.frontConfigName}}
 data:
   API_PATH: "/matchID/api/v0"
-  BACKEND_PORT: "8081"
-  BACKEND_HOST: matchid-backend-service
+  BACKEND_PORT: {{.Values.service.backendPortConfig}}
+  BACKEND_HOST: {{ .Values.image.backendName }}-service
   API_USER_LIMIT_RATE: "1r/s"
   API_DOWNLOAD_LIMIT_RATE: "30r/m"
   API_USER_BURST: "20 nodelay"

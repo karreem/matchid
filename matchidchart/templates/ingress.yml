@@ -1,28 +1,28 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-service
+  name: {{ .Values.mychart.fullname }}
   annotations:
     kubernetes.io/ingress.class: 'nginx'
 spec:
   tls:
     - hosts:
-        - matchid.kube.developpement.insee.fr
+        - {{ .Values.mychart.fullname }}.lab.sspcloud.fr
   rules:
-    - host: matchid.kube.developpement.insee.fr
+    - host: {{ .Values.mychart.fullname }}.lab.sspcloud.fr
       http:
         paths:
           - path: '/'
             pathType: Prefix
             backend:
               service:
-                name: 'matchid-frontend-service'
+                name: '{{ .Values.image.frontendName }}-service'
                 port:
                   number: 80
           - path: '/matchID/api/v0'
             pathType: Prefix
             backend:
               service:
-                name: 'matchid-backend-service'
+                name: '{{ .Values.image.backendName }}-service'
                 port:
                   number: 8081	

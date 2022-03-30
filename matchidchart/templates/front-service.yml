@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.image.frontendName }}-service
+spec:
+  ports:
+    - name: http
+      targetPort: {{ .Values.image.frontendPort }}
+      port: {{ .Values.service.frontendPort }}
+  selector:
+    component: {{ .Values.image.frontendName }}

@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Values.image.name }}-statefulset
+  name: {{ .Values.image.backendName }}-statefulset
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.image.name }}
-  serviceName: {{ .Values.service.name }}
+      app: {{ .Values.image.backendName }}
+  serviceName: {{ .Values.image.backendName }}-service
   replicas: {{ .Values.readReplicas.replicaCount }}
   template:
     metadata:
       labels:
-        app: {{ .Values.image.name }}
+        app: {{ .Values.image.backendName }}
     spec:
       containers:
-        - name: {{ .Values.image.name }}
-          image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+        - name: {{ .Values.image.backendName }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.matchidBackName }}
           ports:
-            - containerPort: {{ .Values.image.port }}
+            - containerPort: {{ .Values.image.backendPort }}
           envFrom:
             - configMapRef:
-                name: back-configmap
+                name: {{ .Values.image.backConfigName }}
           volumeMounts:
             - name: disque-matchid
               mountPath: /matchID/projects
