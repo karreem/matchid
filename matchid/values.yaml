@@ -1,0 +1,116 @@
+# Default values for mychart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+matchidbackconf: |-
+  NO_AUTH: "True"
+  APP: "matchID"
+  APP_GROUP: "matchID"
+  BACKEND_PORT: "8081"
+  ES_THREADS: "2"
+  ES_MAX_TRIES: "3"
+  ES_CHUNK: "500"
+  POSTGRES_PASSWORD: "matchid"
+
+matchidfrontconf: |-
+  API_PATH: "/matchID/api/v0"
+  BACKEND_PORT: "8081"
+  API_USER_LIMIT_RATE: "1r/s"
+  API_DOWNLOAD_LIMIT_RATE: "30r/m"
+  API_USER_BURST: "20 nodelay"
+  API_USER_SCOPE: "http_x_forwarded_for"
+  API_GLOBAL_LIMIT_RATE: "20r/s"
+  API_GLOBAL_BURST: "200 nodelay"
+  APP_NAME: matchID
+
+#  BACKEND_HOST: "test-service"
+
+image:
+  repository: matchid/matchid
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: "matchid-rpmrbx"
+
+service:
+  type: ClusterIP
+  frontendport: 80
+  backendport: 8081
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: matchid-rpmrbx.lab.sspcloud.fr
+      paths:
+         - path: '/'
+           pathType: Prefix 
+         - path: '/matchID/api/v0'
+           pathType: Prefix 
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+
+nodeSelector: {}
+
+affinity: {}
+
+matchid:
+  fullname: matchid-rpmrbx-ingress
+
+readReplicas:
+  replicaCount: 1
+  
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+tolerations: []
