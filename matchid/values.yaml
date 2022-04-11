@@ -9,7 +9,7 @@ matchidbackconf: |-
   APP: "matchID"
   APP_GROUP: "matchID"
   BACKEND_PORT: "8081"
-  ES_THREADS: "2"
+  ES_THREADS: "2" 
   ES_MAX_TRIES: "3"
   ES_CHUNK: "500"
   POSTGRES_PASSWORD: "matchid"

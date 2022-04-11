@@ -78,7 +78,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}-backend
 
 {{- define "matchid.elasticsearch.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "matchid.elasticsearch.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/instance: {{ .Release.Name }}-elasticsearch
 {{- end }}
 
 {{/*

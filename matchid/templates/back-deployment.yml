@@ -20,9 +20,17 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-backend-configmap
+          env:
+            - name: HOST
+              value: {{ include "matchid.elasticsearch.fullname" . | quote }}
+              name: ES_PROXY_PATH
+              value: {{ include "matchid.elasticsearch.fullname" . | quote }}
+              name: es_proxy_path
+              value: {{ include "matchid.elasticsearch.fullname" . | quote }}
           volumeMounts:
             - name: disque-matchid
               mountPath: /matchID/projects
+              subPath: projects
   volumeClaimTemplates:
     - metadata:
         name: disque-matchid
